@@ -1,2 +1,2 @@
-export const title = "HSOC PLATFORM";
+export const title = "SE PLATFORM";
 export const BASE_URL = process.env.BASE_URL;

@@ -14,12 +14,7 @@ import ModalButton from '@/components/Shared/modal-button';
 import EditRole from '@/components/Shared/roles-permissions/edit-role';
 import CreateUser from '@/components/Shared/roles-permissions/create-user';
 
-type User = {
-  id: number;
-  role: keyof typeof ROLES;
-  avatar: string;
-};
-
+import { User } from "@/types/User";
 interface RoleCardProps {
   name: string;
   color?: string;
@@ -120,7 +115,7 @@ export default function RoleCard({
         <div className="flex items-center">
           {users?.slice(0, 4).map((user) => (
             <figure
-              key={user.id}
+              key={user._id}
               className="relative z-10 -ml-1.5 h-8 w-8 rounded-full border-2 border-white"
             >
               <Avatar

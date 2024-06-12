@@ -1,31 +1,57 @@
-import React, { useState } from 'react';
-import Breadcrumb, { BreadcrumbItemProps } from '@/components/BreadCrum/index'; // Adjust the path as per your project structure
-import { DatePicker } from '@/components/DateTimePicker/index'; // Adjust the path as per your project structure
-import SearchWidget from '@/components/search/search'; 
+import React, { useCallback, useEffect } from 'react';
+import Breadcrumb from '@/components/BreadCrum/AutoMapBreadCrum'; // Adjust the path as per your project structure
+import { useLocation } from 'react-router-dom';
+import StudyService from '@/services/StudyService';
+import { useDispatch } from 'react-redux';
+import useCallAPIState from '@/hooks/UseCallAPIState';
+import { StydyType } from '@/utils/types/study-post-type';
+import Rendering from '@/components/ConditionRender/RenderState';
+import { getRandomColor } from '@/utils/helpers/color.generate';
+
+import EventCard from '@/components/cards/post-card';
 const Homepage: React.FC = () => {
-  const [selectedDate, setSelectedDate] = useState(null);
+  const location = useLocation();
+  const pathnames = location.pathname.split('/').filter(x => x);
+  const dispatch = useDispatch();
+  const randomColor = getRandomColor();
+  const [listStudy, setListStudy] = useCallAPIState<StydyType[]>({ status: "IDLE", data: [] })
+  const fetchGroups = useCallback(
+    async () => {
+      setListStudy("LOADING", [])
+      const { statusCode, data } = await StudyService.getAllStudyPosts()
 
-  // Function to handle date change
-  const handleDateChange = (date, event) => {
-    // Update the selected date state
-    setSelectedDate(date);
-  };
+      if (statusCode === 200) {
+        console.log("hihihihihihhi");
+        setListStudy("SUCCESS", data)
+        return
+      }
+      setListStudy("ERROR", [])
+    }, [setListStudy]
+  )
+
+  useEffect(() => {
+    console.log(location.pathname);
+    fetchGroups()
+  }, [fetchGroups])
+
+
   return (
-    <div className='bg-white'>
-   <Breadcrumb>
-  <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-  <Breadcrumb.Item href="/products">Products</Breadcrumb.Item>
-  <Breadcrumb.Item href="/products/category" disableCurrent={false}>Category</Breadcrumb.Item>
-</Breadcrumb>
-<DatePicker
-  onChange={handleDateChange}
-  selectsRange={false}
-  inputProps={{ placeholder: 'Select date' }}
-/>
-<SearchWidget className="custom-search-widget" />
+    <div className='bg-white  p-4'>
+      <Breadcrumb url={location.pathname} />
+      <Rendering loading={listStudy.loading}
+        success={listStudy.success}
+        error={listStudy.error}>
 
 
-    </div>
+        <div className="flex flex-row flex-wrap justify-evenly space-x-3 content-start w-full  rounded-sm  border-spacing-0.5 border-secondary-dark ">
+          {listStudy.data.map(post => (
+            <EventCard event={post} />
+
+          ))}</div>
+
+      </Rendering>
+
+    </div >
   );
 };
 

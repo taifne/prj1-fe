@@ -28,10 +28,11 @@ import { REQUEST_TYPE } from "@/utils/types";
 import useFetch from "@/hooks/useFetch";
 
 import { FaChevronDown } from "react-icons/fa";
-import image1 from "../../../public/assets/images/hsoc-login/logo-hsoc.png";
+import image1 from "../../../public/assets/images/hsoc-login/selogo.png";
+import { useDispatch } from "react-redux";
 const Header = () => {
     const navigate = useNavigate();
-    const dispatch = useAppDispatch();
+    const dispatch = useDispatch();
     const [isShowSidebar, setIsShowSidebar] = useState(false);
     const [isShowMenu, setIsShowMenu] = useState(false);
     const user = useAppSelector((state) => state.auth.user);
@@ -39,53 +40,53 @@ const Header = () => {
 
     const navLinks = [
         {
-            title: "Dashboard",
+            title: "bulletin",
             items: [
                 {
-                    title: "Sidebar",
+                    title: "News",
                     icon: <LuPanelRightClose />,
-                    link: "/sidebar",
+                    link: "/bulletin/news",
                 },
-                { title: "6 sections", icon: <LuHome />, link: "/" },
-                {
-                    title: "4 sections",
-                    icon: <LuLayoutDashboard />,
-                    link: "/dashboard_01",
-                },
-                {
-                    title: "5 sections (2/3)",
-                    icon: <LuLayoutDashboard />,
-                    link: "/dashboard_02",
+                { 
+                    title: "calendar events",
+                 icon: <LuHome />,
+                  link: "/bulletin/events" 
                 },
                 {
-                    title: "5 sections (3/2)",
+                    title: "TOP Q&A",
                     icon: <LuLayoutDashboard />,
-                    link: "/dashboard_03",
+                    link: "/bulletin/topqa",
                 },
-                {
-                    title: "5 sections (4/1)",
-                    icon: <LuLayoutDashboard />,
-                    link: "/dashboard_04",
-                },
+                
             ],
         },
         {
-            title: "Content",
+            title: "management",
             items: [
-                { title: "Guides", icon: <LuFileSpreadsheet />, link: "" },
-                { title: "Checklists", icon: <LuLayoutList />, link: "" },
+                {
+                    title: "Users",
+                    icon: <LuPanelRightClose />,
+                    link: "/management/users",
+                },
+                { 
+                    title: "Posts",
+                 icon: <LuHome />,
+                  link: "/management/posts", 
+                },
+                {
+                    title: "Groups",
+                    icon: <LuLayoutDashboard />,
+                    link: "/management/groups",
+                },
+                {
+                    title: "Roles&Permissions",
+                    icon: <LuLayoutDashboard />,
+                    link: "/management/roles",
+                },
+                
             ],
         },
-        {
-            title: "Customization",
-            items: [
-                { title: "Themes", icon: <LuPalette />, link: "" },
-                { title: "Settings", icon: <LuSettings />, link: "" },
-                { title: "Settings", icon: <LuSettings />, link: "" },
-                { title: "Settings", icon: <LuSettings />, link: "" },
-                { title: "Settings", icon: <LuSettings />, link: "" },
-            ],
-        },
+       
     ];
 
     const handleToggleSidebar = () => {
@@ -106,73 +107,30 @@ const Header = () => {
     };
 
     const handleLogout = () => {
-        sendRequest({ type: REQUEST_TYPE.LOGOUT });
+        console.log('logout');
+        dispatch(logout());
+       // sendRequest({ type: REQUEST_TYPE.LOGOUT });
     };
     const menuItems = [
         {
-            title: "Dashboard",
+            title: "Bulletin",
             icon: FaChevronDown,
             content: [
-                { name: "Executive", path: "/executive" },
-                { name: "Overview", path: "/overview" },
-                { name: "Home", path: "/" },
-                { name: "Alert Monitoring", path: "/alert-montering" },
-                { name: "Asset Monitoring", path: "/asset-monitoring" },
-                { name: "Case Monitoring", path: "/case-monitoring" },
-                { name: "Device Moitoring", path: "/" },
-                { name: "Vulnerability Monitoring", path: "/dashboard_03" },
-                { name: "SOC processing", path: "/soc-processing" },
-                { name: "Security News", path: "/security-news" },
-                { name: "ISS Ensuring", path: "/" },
-                { name: "Topo", path: "/topo" },
-                // { name: "Dashboard 1", path: "/dashboard_01" },
-                // { name: "Dashboard 2", path: "/dashboard_02" },
+                { name: "News", path: "/bulletin/news" },
+                { name: "calendar events", path: "/bulletin/events" },
+                { name: "TOP Q&A", path: "/bulletin/topqa" }
             ],
         },
         {
-            title: "Advanced",
+            title: "Management",
             icon: FaChevronDown,
             content: [
-                { name: "Alert Management", path: "/" },
-                { name: "Alert Management Classic", path: "/" },
-                { name: "Case Management", path: "/" },
-                { name: "Ticket Management", path: "/" },
-                { name: "Compact Report", path: "/" },
-                { name: "Period Report", path: "/" },
-                // { name: "", path: "/dashboard_02" },
-                // { name: "Menu 2 Content", path: "/" },
+                { name: "User", path: "/management/users" },
+                { name: "Post", path: "/management/posts" },
+                { name: "Group", path: "/management/groups" },
+                { name: "Roles & Permissions", path: "/management/roles" }
             ],
-        },
-        {
-            title: "Administration",
-            icon: FaChevronDown,
-            content: [
-                { name: "Account", path: "/account" },
-                { name: "Alias Asset", path: "/" },
-                { name: "Asset", path: "/" },
-                { name: "Device", path: "/" },
-                { name: "Forensics Result", path: "/" },
-                { name: "Format Rule Name", path: "/" },
-                { name: "License", path: "/" },
-                { name: "Login Log", path: "/" },
-                { name: "Message Template", path: "/" },
-                { name: "Operation", path: "/" },
-                { name: "SecNews Setting", path: "/" },
-                { name: "Sender/Receiver", path: "/" },
-                { name: "Send Message", path: "/" },
-                { name: "SLA Config", path: "/" },
-                { name: "Tenant", path: "/tenant" },
-                { name: "Vulnerability", path: "/" },
-            ],
-        },
-        {
-            title: "Help",
-            icon: FaChevronDown,
-            content: [
-                { name: "License", path: "/" },
-                { name: "About HSOC", path: "/" },
-            ],
-        },
+        }
     ];
 
     function renderMenu() {
@@ -181,7 +139,7 @@ const Header = () => {
                 <span className="text-white font-bold text-sm p-3 hover:cursor-pointer flex items-center gap-2">
                     {item.title} <FaChevronDown />
                 </span>
-                <div className="absolute w-60 hidden group-hover:block max-h-[700px] overflow-auto">
+                <div className="absolute w-60 hidden group-hover:block max-h-[700px] overflow-auto py-2">
                     <div className="h-5 bg-transparent"></div>
                     <div className="bg-black backdrop-blur-[2px] border-2 border-blue-500 text-center rounded-md shadow-2xl text-white">
                         {item.content.map((contentItem, index) => (
@@ -272,7 +230,7 @@ const Header = () => {
                     </div>
                 </div>
             )}
-            <header className="z-20 relative backdrop-blur-[2px] bg-black/50 grid grid-cols-3 items-center px-4">
+            <header className="z-20 relative backdrop-blur-[2px] bg-black/50 grid grid-cols-3 items-center px-4 bg-blue-dark">
                 <div className="flex items-center gap-5 ">
                     {/* <div
                         onClick={handleToggleSidebar}
@@ -281,7 +239,7 @@ const Header = () => {
                         {isShowSidebar ? <LuXCircle /> : <LuMenu />}
                     </div> */}
                     <Link to={"/"}>
-                        <div className="flex  items-center gap-2">
+                        <div className="flex  items-center gap-2 p-2">
                             <img
                                 className="w-16 h-16 aspect-square"
                                 src={image1}

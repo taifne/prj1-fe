@@ -1,22 +1,24 @@
-import interceptor from "modules/ManageAccount/apis/interceptor"
-import { requestApiHelper } from "modules/ManageAccount/helpers/request"
-import { User } from "modules/ManageAccount/types/User"
+import interceptor from "@/apis/interceptor"
+import { requestApiHelper } from "@/helpers/request"
+import { User } from "@/types/User"
 
 class UserService {
 
-    static async createUser(user) {
+    static async createUser(user: any) {
         return await requestApiHelper(
             interceptor.post(
-                "iam/users",
+                "users/signup",
                 user
-            )
+            )   
         )
     }
 
-    static async getUsers() {
-        return await requestApiHelper<User[]>(
-            interceptor.get("iam/users")
+    static async getAllUsers() {
+        let love= await requestApiHelper<User[]>(
+            interceptor.get("users")
         )
+      console.log(love)
+        return love;
     }
 }
 

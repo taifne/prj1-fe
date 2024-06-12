@@ -39,14 +39,10 @@ export default function EditRole() {
       validationSchema={rolePermissionSchema}
       useFormProps={{
         defaultValues: {
-          administrator: [PERMISSIONS.Read],
-          manager: [PERMISSIONS.Write],
-          sales: [PERMISSIONS.Delete],
-          support: [PERMISSIONS.Read],
-          developer: [PERMISSIONS.Write],
-          hrd: [PERMISSIONS.Delete],
-          restricteduser: [PERMISSIONS.Write],
-          customer: [PERMISSIONS.Read],
+          post: [PERMISSIONS.Read],
+          user: [PERMISSIONS.Write],
+          group: [PERMISSIONS.Delete],
+     
         },
       }}
       className="grid grid-cols-1 gap-6 p-6  @container [&_.rizzui-input-label]:font-medium [&_.rizzui-input-label]:text-gray-900"

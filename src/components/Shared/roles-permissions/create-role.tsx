@@ -16,6 +16,9 @@ import {
 } from '@/utils/validators/create-role.schema';
 import { Title } from '@/components/ui/text';
 import { useModal } from '@/components/Shared/modal-views/use-modal';
+import { GroupCreate } from '@/types/GroupCreate';
+import GroupService from '@/services/GroupService';
+import { convertToNewRole } from './utils';
 
 // main category form component for create and update category
 export default function CreateRole() {
@@ -27,18 +30,16 @@ export default function CreateRole() {
 
   console.log('state', state);
 
-  const onSubmit: SubmitHandler<CreateRoleInput> = (data) => {
+  const onSubmit: SubmitHandler<CreateRoleInput> = async (data) => {
     // set timeout ony required to display loading state of the create category button
     setLoading(true);
-    setTimeout(() => {
-      console.log('data', data);
-      setLoading(false);
-      setReset({
-        roleName: '',
-        roleColor: '',
-      });
-      closeModal();
-    }, 600);
+
+    console.log('data', data);
+    const newRole: GroupCreate = convertToNewRole(data);
+    console.log('newRole', newRole);
+    await GroupService.craeteNewGroup(newRole);
+    window.location.href = '/roles';
+
   };
 
   const handleCopyToClipboard = (rgba: string) => {
@@ -60,9 +61,8 @@ export default function CreateRole() {
       {({ register, control, watch, formState: { errors } }) => {
         console.log('errors', errors);
         const getColor = watch('roleColor');
-        const colorCode = `rgba(${getColor?.r ?? 0}, ${getColor?.g ?? 0}, ${
-          getColor?.b ?? 0
-        }, ${getColor?.a ?? 0})`;
+        const colorCode = `rgba(${getColor?.r ?? 0}, ${getColor?.g ?? 0}, ${getColor?.b ?? 0
+          }, ${getColor?.a ?? 0})`;
         return (
           <>
             <div className="flex items-center justify-between">
@@ -140,3 +140,5 @@ export default function CreateRole() {
     </Form>
   );
 }
+
+

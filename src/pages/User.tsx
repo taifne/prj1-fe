@@ -8,7 +8,9 @@ import { getColumns as getProductColumns } from '@/components/Shared/ecommerce/p
 import BasicTableWidget from '@/components/controlled-table/basic-table-widget';
 import TableLayout from './table-layout';
 import { metaObject } from '@/config/site.config';
-
+import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import Breadcrumb from '@/components/BreadCrum/AutoMapBreadCrum';
 export const metadata = {
   ...metaObject('Basic Table'),
 };
@@ -30,8 +32,14 @@ const pageHeader = {
 };
 
 export default function BasicTablePage() {
+  const location = useLocation();
+  useEffect(()=>{
+     console.log(location.pathname)
+  },[])
   return (
-    <TableLayout
+    <>
+     <Breadcrumb url={location.pathname} />
+     <TableLayout
       title={pageHeader.title}
       breadcrumb={pageHeader.breadcrumb}
       data={orderData}
@@ -88,5 +96,7 @@ export default function BasicTablePage() {
         />
       </div>
     </TableLayout>
+     </>
+
   );
 }

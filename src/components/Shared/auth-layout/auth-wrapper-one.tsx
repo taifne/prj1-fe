@@ -1,8 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import logoImg from '@public/logo-primary.svg';
-import logoImgText from '@public/logo-primary-text.svg';
+import logoImg from '../../../public/logo-primary.svg';
+import logoImgText from '../../../public/logo-primary-text.svg';
 import Image from 'next/image';
 import { Title, Text } from '@/components/ui/text';
 import { Button } from '@/components/ui/button';
@@ -66,12 +66,7 @@ export default function AuthWrapperOne({
                 href={'/'}
                 className="mb-6 inline-flex max-w-[168px] xl:mb-8"
               >
-                <Image src={logoImg} alt="Isomorphic" />
-                <Image
-                  src={logoImgText}
-                  alt="Isomorphic"
-                  className="ps-2.5 dark:invert"
-                />
+
               </Link>
               <Title
                 as="h2"
@@ -116,7 +111,7 @@ export default function AuthWrapperOne({
           </div>
         </div>
         <div className="hidden w-7/12 items-center justify-center rounded-[20px] bg-gray-50 px-6 dark:bg-gray-100/40 lg:flex xl:justify-start 2xl:px-16">
-          <div className="pb-8 pt-10 text-center xl:pt-16 2xl:block 2xl:w-[1063px]">
+          <div className="pb-2 pt-2 text-center xl:pt-2 2xl:block 2xl:w-[1063px]">
             <div className="mx-auto mb-10 max-w-sm pt-2 2xl:max-w-lg">
               <Title
                 as="h2"

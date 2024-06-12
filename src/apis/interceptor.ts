@@ -1,31 +1,31 @@
-import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
+import axios, { AxiosError } from "axios";
 
-
-const interceptor = axios.create(
-    {
-        baseURL: "http://localhost:8080/api",
-        headers: {
-            "Content-Type": "application/json"
-        }
+const interceptor = axios.create({
+    baseURL: "http://localhost:5000/api/v1",
+    headers: {
+        "Content-Type": "application/json"
     }
-)
+});
 
-const onRequest = (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
-
-    const token = localStorage.getItem("token")
-
+const onRequest = (config: any) => {
+    const token = localStorage.getItem("token");
     if (token) {
-        config.headers.Authorization = token
+        config.headers.Authorization = `Bearer ${token}`;
     }
+    return config;
+};
 
-    return config
-}
+const onResponse = (response: any) => {
+    // Handle successful responses here if needed
+    return response;
+};
 
-const onErrorResponse = (error: AxiosError | Error) => {
-    throw error
-}
+const onErrorResponse = (error: AxiosError) => {
+    // Handle errors here
+    throw error;
+};
 
-interceptor.interceptors.request.use(onRequest)
-interceptor.interceptors.response.use(null, onErrorResponse)
+interceptor.interceptors.request.use(onRequest);
+interceptor.interceptors.response.use(onResponse, onErrorResponse);
 
-export default interceptor 
+export default interceptor;

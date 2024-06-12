@@ -1,25 +1,26 @@
-export type UserType = {
-  _index: string;
-  _type: string;
-  _id: string;
-  _score: number;
-  _source: UserDetail;
-};
+import { ROLES } from '@/config/constants';
+export const PERMISSIONS = {
+    Read: 'Read',
+    Write: 'Write',
+    Delete: 'Delete',
+  } as const;
+  
+  export const STATUSES = {
+    Pending: 'Pending',
+    Active: 'Active',
+    Deactivated: 'Deactivated',
+  } as const;
+  
+export type User = {
+    _id: string;
+    avatar: string;
+    fullName: string;
+    username: string;
+    email: string;
+    role: keyof typeof ROLES;
+    createdAt: Date;
+    permissions: keyof typeof PERMISSIONS;
+    status: keyof typeof STATUSES;
+  };
+  
 
-export type UserDetail = {
-  createdAt: string;
-  active: boolean;
-  id: string;
-  userName: string;
-  email: string;
-  status: string;
-  modified: string;
-  role: string
-};
-export type TenantUser = {
-  fullName: string,
-  tenantId: string,
-  active: string,
-  updatedDate: string
-
-}

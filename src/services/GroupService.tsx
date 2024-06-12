@@ -1,23 +1,26 @@
-import interceptor from "modules/ManageAccount/apis/interceptor"
-import { requestApiHelper } from "modules/ManageAccount/helpers/request"
-import Group from "modules/ManageAccount/types/Group"
+import interceptor from "@/apis/interceptor"
+import { requestApiHelper } from "@/helpers/request"
 
 class GroupService {
 
-    static async createUser(user) {
+    static async getAllGroup() {
+        let love= await requestApiHelper(
+            interceptor.get(
+                "groups"
+            )   
+        )
+        console.log(love);
+        return love;
+    }
+    static async craeteNewGroup(group: any) {
         return await requestApiHelper(
             interceptor.post(
-                "iam/users",
-                user
-            )
+                "groups",
+                group
+            )   
         )
     }
 
-    static async getGroups() {
-        return await requestApiHelper<Group[]>(
-            interceptor.get("iam/groups")
-        )
-    }
 }
 
 export default GroupService

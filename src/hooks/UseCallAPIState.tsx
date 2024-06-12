@@ -23,6 +23,7 @@ function useCallAPIState<T = any>(initial: { status: Status, data: T }): [State<
                 loading: false,
                 data: data
             }
+        
             state[toLower(status)] = true
             return state
         }

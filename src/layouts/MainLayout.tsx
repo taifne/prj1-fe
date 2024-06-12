@@ -1,11 +1,16 @@
 import { Outlet } from "react-router-dom";
 import Header from "@/components/Shared/Header";
+import { ToastContainer } from "react-toastify";
+
 const MainLayout = () => {
     return (
-        <div className="  ">
+        <div className=" ">
          <Header />
+         
+         <ToastContainer />
+
         
-            <Outlet />
+            <Outlet  />
       
         </div>
     );

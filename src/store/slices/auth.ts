@@ -1,45 +1,59 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
+import { permissions } from './../../components/Shared/roles-permissions/utils';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-type AuthState = {
+interface User {
+  username: string;
+  _id:string;
+  email: string;
+  permissions:String[];
+}
+
+
+interface AuthState {
   isLoggedIn: boolean;
   accessToken: string | null;
-  user: {
-    name: string;
-    email: string;
-  };
-};
+  user: User;
 
-const initialState:AuthState= {
+}
+
+const initialState: AuthState = {
   isLoggedIn: false,
   accessToken: null,
   user: {
-    name: "",
+    _id:"string",
+    username: "",
     email: "",
-  },
+    permissions:[]
+  }
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    login: (state, action: PayloadAction<any>) => {
+    login: (state, action: PayloadAction<{ accessToken: string; user: User }>) => {
+      const { accessToken, user } = action.payload;
       state.isLoggedIn = true;
-      state.accessToken = action.payload.accessToken;
-      state.user.name = action.payload.userName;
-      state.user.email = action.payload.email;
+      state.accessToken = accessToken;
+      state.user = user;
+
     },
     logout: (state) => {
-      state.accessToken=null;
       state.isLoggedIn = false;
       state.accessToken = null;
+      state.user = {
+      _id:"",
+        username: "",
+        email: "",
+        permissions:[]
+      };
     },
-    updateJWT:(state, action: PayloadAction<any>)=>{
-      state.accessToken=action.payload;
-    }
+    updateJWT: (state, action: PayloadAction<string | null>) => {
+      state.accessToken = action.payload;
+    },
   },
 });
 
-export const { login, logout,updateJWT } = authSlice.actions;
+export const { login, logout, updateJWT } = authSlice.actions;
 
 export default authSlice.reducer;

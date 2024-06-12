@@ -1,12 +1,10 @@
 import React from 'react';
-import cn from '@/utils/class-names';
-
+import Link from 'next/link';
 
 export type BreadcrumbItemProps = {
   href?: string;
   className?: string;
   children: React.ReactNode;
-
 };
 
 const BreadcrumbItem = ({
@@ -14,13 +12,13 @@ const BreadcrumbItem = ({
   className,
   children,
 }: BreadcrumbItemProps) => (
-  <a
+  <Link
     href={href}
     role="button"
-    className={cn('inline-flex items-center gap-2 text-sm', className)}
+    className={`inline-flex items-center gap-2 text-sm ${className}`}
   >
     {children}
-  </a>
+  </Link>
 );
 
 export interface BreadcrumbProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -43,22 +41,23 @@ const Breadcrumb = ({
   const numOfItems = React.Children.count(children);
 
   return (
-    <div className={cn('inline-flex items-center gap-2.5', className)}>
+    <div className={`inline-flex items-center gap-2.5 select-none ${className}`}>
       {React.Children.map(children, (child, index) => {
         if (!React.isValidElement<BreadcrumbItemProps>(child)) return child;
 
         return (
           <>
             {React.cloneElement(child, {
-              className: cn(
-                'text-gray-700 last:text-gray-500 font-medium',
+              className: `${
+                child.props.className || ''
+              } text-gray-700 last:text-gray-500 font-semibold text-md ${
                 disableCurrent && 'last:pointer-events-none'
-              ),
+              }`,
             })}
             {index < numOfItems - 1 &&
               (separatorVariant === 'default' ? (
                 <span
-                  className={cn('text-sm text-gray-500', separatorClassName)}
+                  className={`text-md font-bold text-gray-900 ${separatorClassName}`}
                 >
                   {separator}
                 </span>

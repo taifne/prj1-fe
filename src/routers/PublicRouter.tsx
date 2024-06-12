@@ -7,17 +7,25 @@ const BlankLayout = lazy(() => import("@/layouts/BlankLayout"));
 
 const Register = lazy(() => import("@/pages/public/Register"));
 const Introduction = lazy(() => import("@/pages/public/Introduction/index"));
-const Login = lazy(() => import("@/pages/public/Login"));
-
+const Login = lazy(() => import("@/pages/signin/page"));
+const SignUp=lazy(() => import("@/pages/signup/index"));
 // Định nghĩa mảng các route
 const routes = [
     {
-        path: "/login",
+        path: "/introduction",
         element: <Introduction />,
     },
     {
         path: "/register",
         element: <Register />,
+    },
+    {
+        path: "/login",
+        element: <Login />,
+    },
+    {
+        path: "/sign-up",
+        element: <SignUp />,
     },
 ];
 

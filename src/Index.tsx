@@ -11,12 +11,12 @@ const App = () => {
   return (
     <BrowserRouter>
       <Provider store={store}>
-      <ThemeProvider>
-        <PersistGate loading={null} persistor={persistor}>
-          <AppRouter />
-        </PersistGate>
-        <GlobalDrawer />
-        <GlobalModal />
+        <ThemeProvider>
+          <PersistGate loading={null} persistor={persistor}>
+            <AppRouter />
+          </PersistGate>
+          <GlobalDrawer />
+          <GlobalModal />
         </ThemeProvider>
       </Provider>
 

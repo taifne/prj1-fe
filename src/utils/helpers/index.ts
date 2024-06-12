@@ -8,21 +8,8 @@ import {
   getList,
   updateUser,
 } from "../../store/slices/user";
-import {
-  addNode,
-  deleteNode,
-  getList as getChart,
-  updateNode,
-} from "../../store/slices/networkchart";
-import {
-  getListTenant,
-  getListTenantAll,
-  getRsaPublickey,
-  getTenantDetail,
-  updateTenantById,
-} from "@/store/slices/tenant";
 
-import { getAlert } from "@/store/slices/statistic";
+
 
 const getRequestConfig = (
   type: REQUEST_TYPE,
@@ -42,7 +29,7 @@ const getRequestConfig = (
       };
     case REQUEST_TYPE.LOGOUT:
       return {
-        method: REQUEST_METHOD.POST,
+        method: REQUEST_METHOD.GET,
         isShowToast: true,
         isDispatch: true,
         action: logout,
@@ -84,38 +71,8 @@ const getRequestConfig = (
         isDispatch: true,
         action: addUser,
       };
-    case REQUEST_TYPE.NETWORK_CHART:
-      return {
-        url: `${BASE_URL}/networkchart`,
-        method: REQUEST_METHOD.GET,
-        isShowToast: false,
-        isDispatch: true,
-        action: getChart,
-      };
-    case REQUEST_TYPE.ADD_NETWORK_CHART:
-      return {
-        url: `${BASE_URL}/networkchart`,
-        method: REQUEST_METHOD.POST,
-        isShowToast: true,
-        isDispatch: true,
-        action: addNode,
-      };
-    case REQUEST_TYPE.UPDATE_NETWORK_CHART:
-      return {
-        url: `${BASE_URL}/networkchart`,
-        method: REQUEST_METHOD.PUT,
-        isShowToast: true,
-        isDispatch: true,
-        action: updateNode,
-      };
-    case REQUEST_TYPE.DELETE_NETWORK_CHART:
-      return {
-        url: `${BASE_URL}/networkchart/${slug}`,
-        method: REQUEST_METHOD.DELETE,
-        isShowToast: true,
-        isDispatch: true,
-        action: deleteNode,
-      };
+
+
     case REQUEST_TYPE.UPDATE_ROLE_USER:
       return {
         url: `${BASE_URL}/users/updateRole`,
@@ -132,23 +89,9 @@ const getRequestConfig = (
         isDispatch: true,
         // action: addUser,
       };
-    case REQUEST_TYPE.GET_TENANT:
-      return {
-        url: `${BASE_URL}/tenant`,
-        method: REQUEST_METHOD.GET,
-        isShowToast: false,
-        isDispatch: true,
-        action: getListTenant,
-      };
 
-    case REQUEST_TYPE.ALERT:
-      return {
-        url: `${BASE_URL}/statistic/alert/?timestamp=${slug}`,
-        method: REQUEST_METHOD.GET,
-        isShowToast: false,
-        isDispatch: true,
-        action: getAlert,
-      };
+
+
     case REQUEST_TYPE.GET_EXECUTIVECASE:
       return {
         url: `${BASE_URL}/statistic/executivecase/?${slug}`,
@@ -259,23 +202,6 @@ const getRequestConfig = (
         isDispatch: false,
       };
 
-    case REQUEST_TYPE.GET_TENANT_ALL:
-      return {
-        url: `${BASE_URL}/tenant/list`,
-        method: REQUEST_METHOD.GET,
-        isShowToast: false,
-        isDispatch: true,
-        action: getListTenantAll,
-      };
-
-    case REQUEST_TYPE.GET_TENANT_DETAIL:
-      return {
-        url: `${BASE_URL}/tenant/${slug}`,
-        method: REQUEST_METHOD.GET,
-        isShowToast: false,
-        isDispatch: true,
-        action: getTenantDetail,
-      };
     case REQUEST_TYPE.UPDATE_TENANT:
       return {
         url: `${BASE_URL}/tenant/${slug}`,
