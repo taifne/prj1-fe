@@ -16,6 +16,7 @@ import {
 import { useAppSelector } from '@/hooks/useAppSelector';
 interface CommentProps {
   comment: Comment;
+  postid:string;
   setParentID: (parentId: string) => void;
   handleChangeMess: (content: string) => void;
   CreateAComment: () => void;
@@ -23,8 +24,9 @@ interface CommentProps {
   DeleteAComment: (commentId: string) => void;
 }
 
-const CommentComponent: React.FC<CommentProps> = ({ comment, setParentID, handleChangeMess, CreateAComment, DeleteAComment, OnUpdateComment }) => {
+const CommentComponent: React.FC<CommentProps> = ({ comment,postid, setParentID, handleChangeMess, CreateAComment, DeleteAComment, OnUpdateComment }) => {
   const [replying, setReplying] = useState(false);
+  const [content, setContent] = useState("");
   const userId = useAppSelector((state) => state.auth.user._id);
 
   const [liked, setLiked] = useState(false);
@@ -50,7 +52,7 @@ const CommentComponent: React.FC<CommentProps> = ({ comment, setParentID, handle
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    handleChangeMess(e.target.value);
+    setContent(e.target.value);
   };
 
   const handleReply = () => {
@@ -68,8 +70,8 @@ const CommentComponent: React.FC<CommentProps> = ({ comment, setParentID, handle
     setReplying(false);
   };
 
-  const handlePostReply = () => {
-    CreateAComment();
+  const handlePostReply = async() => {
+    await CommentService.createAComment({ parentId: comment.id, questionId:postid, content: content });
     OnUpdateComment();
   };
 
@@ -129,7 +131,7 @@ const CommentComponent: React.FC<CommentProps> = ({ comment, setParentID, handle
       {comment.replies.length > 0 && (
         <div className="ml-6 border-l border-gray-300 pl-1">
           {comment.replies.map(reply => (
-            <CommentComponent key={reply.id} comment={reply}  setParentID={setParentID} handleChangeMess={handleChangeMess} CreateAComment={CreateAComment} OnUpdateComment={OnUpdateComment} DeleteAComment={DeleteAComment} />
+            <CommentComponent key={reply.id} postid={postid} comment={reply}  setParentID={setParentID} handleChangeMess={handleChangeMess} CreateAComment={CreateAComment} OnUpdateComment={OnUpdateComment} DeleteAComment={DeleteAComment} />
           ))}
         </div>
       )}
@@ -139,7 +141,7 @@ const CommentComponent: React.FC<CommentProps> = ({ comment, setParentID, handle
           <input onChange={handleInputChange} className="border border-gray-300 rounded p-1 w-full" placeholder="Write your reply..." />
           <div className="mt-1 flex justify-end">
             <button onClick={handleCancelReply} className="mr-2 text-sm text-gray-500 hover:text-gray-700">Cancel</button>
-            <button onClick={handlePostReply} className="text-sm bg-cyan-300 text-white px-2 py-1 rounded hover:bg-cyan-500">Reply</button>
+            <button onClick={handlePostReply} className="text-sm bg-cyan-300 text-black px-2 py-1 rounded hover:bg-cyan-500">Reply</button>
           </div>
         </div>
       )}

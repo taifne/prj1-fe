@@ -59,18 +59,27 @@ export const getColumns = ({
   onHeaderCellClick,
 }: Columns) => [
   {
-    title: <HeaderCell title="Order ID" />,
+    title: <HeaderCell title="User id" />,
     dataIndex: 'id',
     key: 'id',
     width: 90,
     render: (value: string) => <Text>#{value}</Text>,
   },
   {
-    title: <HeaderCell title="Customer" />,
-    dataIndex: 'customer',
-    key: 'customer',
+    title: <HeaderCell title="Email" />,
+    dataIndex: 'email',
+    key: 'email',
+    width: 150,
+    render: (value: string) => (
+      <Text className="font-medium text-gray-700">#{value}</Text>
+    ),
+  },
+  {
+    title: <HeaderCell title="avatar" />,
+    dataIndex: 'avatar',
+    key: 'avatar',
     width: 300,
-    hidden: 'customer',
+    hidden: 'avatar',
     render: (_: any, row: any) => (
       <TableAvatar
         src={row.avatar}
@@ -80,36 +89,39 @@ export const getColumns = ({
     ),
   },
   {
-    title: <HeaderCell title="Items" />,
-    dataIndex: 'items',
-    key: 'items',
+    title: <HeaderCell title="status" />,
+    dataIndex: 'status',
+    key: 'status',
     width: 150,
     render: (value: string) => (
       <Text className="font-medium text-gray-700">{value}</Text>
     ),
   },
   {
-    title: (
-      <HeaderCell
-        title="Price"
-        sortable
-        ascending={
-          sortConfig?.direction === 'asc' && sortConfig?.key === 'price'
-        }
-      />
-    ),
-    onHeaderCell: () => onHeaderCellClick('price'),
-    dataIndex: 'price',
-    key: 'price',
+    title: <HeaderCell title="role" />,
+    dataIndex: 'role',
+    key: 'role',
     width: 150,
     render: (value: string) => (
-      <Text className="font-medium text-gray-700">${value}</Text>
+      <Text className="font-medium text-gray-700">{value}</Text>
     ),
   },
   {
+    title: <HeaderCell title="permisstion" />,
+    dataIndex: 'permission',
+    key: 'permission',
+    width: 150,
+    render: (value: string[]) => (
+      value.map(item=>(     <Text className="font-medium text-gray-700">{value}</Text>))
+ 
+    ),
+  },
+
+
+  {
     title: (
       <HeaderCell
-        title="Created"
+        title="createdAt"
         sortable
         ascending={
           sortConfig?.direction === 'asc' && sortConfig?.key === 'createdAt'
@@ -122,79 +134,15 @@ export const getColumns = ({
     width: 200,
     render: (value: Date) => <DateCell date={value} />,
   },
+
   {
-    title: (
-      <HeaderCell
-        title="Modified"
-        sortable
-        ascending={
-          sortConfig?.direction === 'asc' && sortConfig?.key === 'updatedAt'
-        }
-      />
-    ),
-    onHeaderCell: () => onHeaderCellClick('updatedAt'),
-    dataIndex: 'updatedAt',
-    key: 'updatedAt',
-    width: 200,
-    render: (value: Date) => <DateCell date={value} />,
-  },
-  {
-    title: <HeaderCell title="Status" />,
-    dataIndex: 'status',
-    key: 'status',
+    title: <HeaderCell title="fullName" />,
+    dataIndex: 'fullName',
+    key: 'fullName',
     width: 140,
-    render: (value: string) => getStatusBadge(value),
+    render: (value: string) =><Text>#{value}</Text>,
   },
-  {
-    // Need to avoid this issue -> <td> elements in a large <table> do not have table headers.
-    title: <HeaderCell title="Actions" className="opacity-0" />,
-    dataIndex: 'action',
-    key: 'action',
-    width: 130,
-    render: (_: string, row: any) => (
-      <div className="flex items-center justify-end gap-3 pe-4">
-        <Tooltip
-          size="sm"
-          content={() => 'Edit Order'}
-          placement="top"
-          color="invert"
-        >
-          <Link href={routes.eCommerce.editOrder(row.id)}>
-            <ActionIcon
-              tag="span"
-              size="sm"
-              variant="outline"
-              className="hover:text-gray-700"
-            >
-              <PencilIcon className="h-4 w-4" />
-            </ActionIcon>
-          </Link>
-        </Tooltip>
-        <Tooltip
-          size="sm"
-          content={() => 'View Order'}
-          placement="top"
-          color="invert"
-        >
-          <Link href={routes.eCommerce.orderDetails(row.id)}>
-            <ActionIcon
-              tag="span"
-              size="sm"
-              variant="outline"
-              className="hover:text-gray-700"
-            >
-              <EyeIcon className="h-4 w-4" />
-            </ActionIcon>
-          </Link>
-        </Tooltip>
-        <DeletePopover
-          title={`Delete the order`}
-          description={`Are you sure you want to delete this #${row.id} order?`}
-          onDelete={() => onDeleteItem(row.id)}
-        />
-      </div>
-    ),
-  },
+
 ];
 
 export const getWidgetColumns = ({

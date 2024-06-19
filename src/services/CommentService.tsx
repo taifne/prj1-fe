@@ -5,7 +5,7 @@ import { Question } from "@/types/Ques"
 import { CommentCreate, CommentData, CommentUpdate } from "@/types/Comment";
 class CommentServce {
 
-    static async createAComment(data:Partial<CommentCreate>): Promise<CommentData | null> {
+    static async createAComment(data:CommentCreate): Promise<CommentData | null> {
         try {
      
             const response = await interceptor.post(`/comments/create`,data);
@@ -34,7 +34,7 @@ class CommentServce {
   
   static async likeComment(data:Partial<CommentUpdate>,Id:string): Promise<CommentData | null> {
     try {
-        console.log(data);
+        console.log(data);  
         const response = await interceptor.patch(`/comments/${Id}`,data);
         return response.data;
     } catch (error) {

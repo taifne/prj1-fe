@@ -9,8 +9,7 @@ const AppRouter = () => {
 
     return (
         <Routes>
-        
-            {isLoggedIn ? (
+                    {isLoggedIn ? (
                 <Route path="*" element={<ProtectedRouter />} />
             ) : (
                 <Route path="*" element={<PublicRouter />} />

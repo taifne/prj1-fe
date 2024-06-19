@@ -10,7 +10,7 @@ export interface Comment {
     replies: Comment[];
 }
 export interface CommentCreate {
-    postId: string | null;
+    questionId: string | null;
     content: string;
     parentId: string | null;
 

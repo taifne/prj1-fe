@@ -14,12 +14,11 @@ export const PERMISSIONS = {
 export type User = {
     _id: string;
     avatar: string;
-    fullName: string;
-    username: string;
+    fullName:string;
     email: string;
     role: keyof typeof ROLES;
     createdAt: Date;
-    permissions: keyof typeof PERMISSIONS;
+    permissions: string[];
     status: keyof typeof STATUSES;
   };
   

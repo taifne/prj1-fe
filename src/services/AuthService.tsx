@@ -16,6 +16,24 @@ class AuthService {
         )
     }
 
+    static async GetMe() {
+        return await requestApiHelper<GetMe>(
+            interceptor.get(
+                "auth/me"
+            )
+        )
+
+    }
+    static async Logout() {
+        return await requestApiHelper(
+            interceptor.get(
+                "auth/logout"
+            )
+        )
+
+    }
+
+
 
 
     static async Login(lgdata: LoginInfo): Promise<any> {
@@ -26,9 +44,9 @@ class AuthService {
             );
 
 
-          
+
             localStorage.setItem('token', response.data?.accessToken);
-            
+
             // Return the response data as JSON
             return response.data;
         } catch (error: any) {

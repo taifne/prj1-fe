@@ -37,7 +37,7 @@ export default function SignUpForm() {
     
     // Call AuthService.Register with the mapped data
     const response = await AuthService.Register(signUpData);
-    console.log(response);
+  
     setReset({ ...initialValues, isAgreed: false });
 };
 
@@ -137,7 +137,7 @@ export default function SignUpForm() {
               type="submit"
               className="col-span-2 mt-2"
             >
-              <span>Get Started</span>{' '}
+              <span>Register</span>{' '}
               <PiArrowRightBold className="ms-2 mt-0.5 h-5 w-5" />
             </Button>
           </div>

@@ -4,8 +4,6 @@ import useCallAPIState from "@/hooks/UseCallAPIState";
 import QuesService from "@/services/QuesService";
 import { CommentData } from "@/types/Comment";
 import Comment from "@/components/comentBox";
-// import { Post } from "@/types/post";
-// import PostCard from "@/components/postCard";
 import { User } from "@/types/User";
 import UserService from "@/services/UserService";
 import UserComponent from "@/components/UserIcon";
@@ -35,7 +33,7 @@ const PostPage: FC = () => {
     });
     const [postState, updatePostState] = useCallAPIState<Question>({
         data: {
-            _id: "",
+            _id: '',
             title: "",
             body: "",
             votes: 1,
@@ -58,12 +56,12 @@ const PostPage: FC = () => {
 
     const ReplieAComment = async () => {
 
-        await CommentServce.createAComment({ parentId: parentId, postId: postState.data?._id, content: replyContent });
+        await CommentServce.createAComment({ parentId: parentId, questionId: postState.data?._id, content: replyContent });
         OnUpdateComment()
     };
     const CreateAComment = async () => {
 
-        await CommentServce.createAComment({ parentId: null, postId: postState.data?._id, content: newContent });
+        await CommentServce.createAComment({ parentId: null, questionId: postState.data?._id, content: newContent });
         OnUpdateComment()
     };
     const SetDeleteAComment = async (commentId: string) => {
@@ -198,7 +196,7 @@ const PostPage: FC = () => {
                                     <Comment
                                         key={comment.id}
                                         comment={comment}
-                                        
+                                        postid={postState.data._id}
                                         OnUpdateComment={OnUpdateComment}
                                         setParentID={handleParentId}
                                         handleChangeMess={handleChangeMessage}

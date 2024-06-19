@@ -30,6 +30,7 @@ import useFetch from "@/hooks/useFetch";
 import { FaChevronDown } from "react-icons/fa";
 import image1 from "../../../public/assets/images/hsoc-login/selogo.png";
 import { useDispatch } from "react-redux";
+import AuthService from "@/services/AuthService";
 const Header = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -47,17 +48,17 @@ const Header = () => {
                     icon: <LuPanelRightClose />,
                     link: "/bulletin/news",
                 },
-                { 
+                {
                     title: "calendar events",
-                 icon: <LuHome />,
-                  link: "/bulletin/events" 
+                    icon: <LuHome />,
+                    link: "/bulletin/events"
                 },
                 {
                     title: "TOP Q&A",
                     icon: <LuLayoutDashboard />,
                     link: "/bulletin/topqa",
                 },
-                
+
             ],
         },
         {
@@ -68,25 +69,32 @@ const Header = () => {
                     icon: <LuPanelRightClose />,
                     link: "/management/users",
                 },
-                { 
-                    title: "Posts",
-                 icon: <LuHome />,
-                  link: "/management/posts", 
-                },
-                {
-                    title: "Groups",
-                    icon: <LuLayoutDashboard />,
-                    link: "/management/groups",
-                },
                 {
                     title: "Roles&Permissions",
                     icon: <LuLayoutDashboard />,
                     link: "/management/roles",
                 },
-                
+
             ],
         },
-       
+        {
+            title: "resource",
+            items: [
+                {
+                    title: "Se News Management",
+                    icon: <LuPanelRightClose />,
+                    link: "/resource/news",
+                },
+                {
+                    title: "Se Events Management",
+                    icon: <LuHome />,
+                    link: "/resource/events"
+                }
+          
+
+            ],
+        },
+
     ];
 
     const handleToggleSidebar = () => {
@@ -106,10 +114,11 @@ const Header = () => {
         setIsShowSidebar(false);
     };
 
-    const handleLogout = () => {
+    const handleLogout = async() => {
         console.log('logout');
+        await AuthService.Logout();
         dispatch(logout());
-       // sendRequest({ type: REQUEST_TYPE.LOGOUT });
+        // sendRequest({ type: REQUEST_TYPE.LOGOUT });
     };
     const menuItems = [
         {
@@ -126,9 +135,16 @@ const Header = () => {
             icon: FaChevronDown,
             content: [
                 { name: "User", path: "/management/users" },
-                { name: "Post", path: "/management/posts" },
-                { name: "Group", path: "/management/groups" },
                 { name: "Roles & Permissions", path: "/management/roles" }
+            ],
+        },
+        {
+            title: "Resource",
+            icon: FaChevronDown,
+            content: [
+                { name: "Se News", path: "/resource/news" },
+                { name: "Se Daily Events", path: "/resource/events" },
+              
             ],
         }
     ];
@@ -136,17 +152,17 @@ const Header = () => {
     function renderMenu() {
         return menuItems.map((item, index) => (
             <div key={index} className="relative group">
-                <span className="text-white font-bold text-sm p-3 hover:cursor-pointer flex items-center gap-2">
+                <span className="text-white font-bold w-48 text-md py-2 px-3 hover:cursor-pointer flex items-center gap-2">
                     {item.title} <FaChevronDown />
                 </span>
-                <div className="absolute w-60 hidden group-hover:block max-h-[700px] overflow-auto py-2">
+                <div className="absolute w-60 hidden group-hover:block max-h-[700px] overflow-auto py-0">
                     <div className="h-5 bg-transparent"></div>
                     <div className="bg-black backdrop-blur-[2px] border-2 border-blue-500 text-center rounded-md shadow-2xl text-white">
                         {item.content.map((contentItem, index) => (
                             <Link to={contentItem.path} key={index}>
                                 <p
                                     key={index}
-                                    className="hover:bg-gray-900 font-medium text-sm rounded-md p-2 hover:cursor-pointer"
+                                    className="hover:bg-gray-900 font-medium text-md rounded-md p-2 hover:cursor-pointer"
                                 >
                                     {contentItem.name}
                                 </p>
@@ -198,11 +214,10 @@ const Header = () => {
                                             {group.title}
                                             {group.items?.length > 0 && (
                                                 <BiChevronDown
-                                                    className={`text-lg cursor-pointer ${
-                                                        openMenus[group.title]
+                                                    className={`text-lg cursor-pointer ${openMenus[group.title]
                                                             ? "rotate-180"
                                                             : ""
-                                                    }`}
+                                                        }`}
                                                 />
                                             )}
                                         </div>
@@ -284,7 +299,7 @@ const Header = () => {
                                 </div>
                                 <div className="flex items-center text-white gap-1 p-2 rounded-lg">
                                     <LuUser2 />
-                                    {user.name}
+                                    {user.username}
                                 </div>
                                 <div className="flex items-center text-white gap-1 p-2 rounded-lg">
                                     <LuMail />
@@ -295,6 +310,14 @@ const Header = () => {
                                 <div className="text-sm text-blue-500 font-bold uppercase ml-2">
                                     Account
                                 </div>
+                                <Link to={"/getme"}>
+                                    <div className="flex  items-center gap-2 p-2">
+                                       
+                                        <p className="font-semibold text-sm text-white ">
+                                           Get me
+                                        </p>
+                                    </div>
+                                </Link>
                                 <div
                                     onClick={handleSettings}
                                     className="cursor-pointer flex items-center text-white gap-1 p-2 rounded-lg hover:bg-white/20"

@@ -9,7 +9,7 @@ interface RolesGridProps {
   className?: string;
   gridClassName?: string;
 }
-import {  Group} from "@/types/Group";
+import { Group } from "@/types/Group";
 import Rendering from '@/components/ConditionRender/RenderState';
 export default function RolesGrid({
   className,
@@ -21,7 +21,7 @@ export default function RolesGrid({
       setAllGroup("LOADING", []); // Corrected syntax
       try {
         const { data, statusCode } = await GroupService.getAllGroup();
-        console.log(data);
+       
         if (statusCode === 200) {
           setAllGroup("SUCCESS", data); // Corrected syntax
         } else {
@@ -37,7 +37,7 @@ export default function RolesGrid({
 
   useEffect(() => {
     fetchAllGroup()
- 
+
 
   }, [setAllGroup]);
 
@@ -49,19 +49,19 @@ export default function RolesGrid({
           gridClassName
         )}
       >
-         <Rendering   loading={allGroup.loading}
-                        success={allGroup.success}
-                        error={allGroup.error}>
+        <Rendering loading={allGroup.loading}
+          success={allGroup.success}
+          error={allGroup.error}>
 
           {allGroup.data.map((role) => (
-          <RoleCard key={role.name} {...role} />
-        ))}
+            <RoleCard key={role.name} {...role}  />
+          ))}
 
 
-       
-      
-      </Rendering>
-      
+
+
+        </Rendering>
+
       </div>
     </div>
   );

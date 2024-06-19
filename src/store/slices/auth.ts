@@ -1,3 +1,4 @@
+import { Group } from './../../types/Group';
 import { permissions } from './../../components/Shared/roles-permissions/utils';
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
@@ -6,6 +7,7 @@ interface User {
   _id:string;
   email: string;
   permissions:String[];
+  group:String[];
 }
 
 
@@ -23,7 +25,8 @@ const initialState: AuthState = {
     _id:"string",
     username: "",
     email: "",
-    permissions:[]
+    permissions:[],
+    group:[]
   }
 };
 
@@ -45,7 +48,8 @@ const authSlice = createSlice({
       _id:"",
         username: "",
         email: "",
-        permissions:[]
+        permissions:[],
+        group:[]
       };
     },
     updateJWT: (state, action: PayloadAction<string | null>) => {

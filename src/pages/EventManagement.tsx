@@ -9,13 +9,19 @@ import BasicTableWidget from '@/components/controlled-table/basic-table-widget';
 import TableLayout from './table-layout';
 import { metaObject } from '@/config/site.config';
 import { useLocation } from 'react-router-dom';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Breadcrumb from '@/components/BreadCrum/AutoMapBreadCrum';
 import useCallAPIState from '@/hooks/UseCallAPIState';
 import UserService from '@/services/UserService';
 import { User } from '@/types/User';
-import UsersTable from '@/components/Shared/roles-permissions/users-table';
+import UsersTable from '@/components/Shared/roles-permissions/users-table/event';
 import Rendering from '@/components/ConditionRender/RenderState';
+import ModalButton from '@/components/Shared/modal-button';
+import CreateUser from '@/components/createEventView';
+import { Event } from '@/types/eventinput';
+import { News } from '@/data/users-data';
+import StudyService from '@/services/StudyService';
+import EventService from '@/services/EventService';
 export const metadata = {
   ...metaObject('Basic Table'),
 };
@@ -36,16 +42,18 @@ const pageHeader = {
   ],
 };
 
-export default function BasicTablePage() {
+export default function EventManagement() {
   const location = useLocation();
+  const [input,setInput]=useState<Partial<Event>>({})
   useEffect(() => {
     console.log(location.pathname)
   }, [])
-  const [listStudy, setListStudy] = useCallAPIState<User[]>({ status: "IDLE", data: [] })
+
+  const [listStudy, setListStudy] = useCallAPIState<Event[]>({ status: "IDLE", data: [] })
   const fetchGroups = useCallback(
     async () => {
       setListStudy("LOADING", [])
-      const { statusCode, data } = await UserService.getAllUsers()
+      const { statusCode, data } = await EventService.getAllEvent()
 
       if (statusCode === 200) {
         console.log(data);
@@ -57,7 +65,7 @@ export default function BasicTablePage() {
   )
 
   useEffect(() => {
-    console.log(listStudy.data);
+
     fetchGroups()
   }, [fetchGroups])
   return (
@@ -66,7 +74,16 @@ export default function BasicTablePage() {
       <Rendering loading={listStudy.loading}
         success={listStudy.success}
         error={listStudy.error}>
-        <UsersTable data={listStudy.data} />
+          <div className="w-fit mt-10">
+               <ModalButton 
+            label="Create New SeBulletin"
+            view={<CreateUser />}
+            customSize="600px"
+            className="mt-0"
+          />
+         </div>
+         
+            <UsersTable data={listStudy.data} />
       </Rendering>
     </>
 

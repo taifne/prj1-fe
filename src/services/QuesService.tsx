@@ -7,11 +7,12 @@ class QuesService {
     static async createUser(user: any) {
         return await requestApiHelper(
             interceptor.post(
-                "users/signup",
+                "questions",
                 user
             )
         )
     }
+
 
     static async getAllQuestion() {
         let quess = await requestApiHelper<Question[]>(

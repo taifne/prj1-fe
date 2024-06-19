@@ -67,20 +67,20 @@ export default function CreateRole() {
           <>
             <div className="flex items-center justify-between">
               <Title as="h4" className="font-semibold">
-                Create new Group
+                Add a new Role
               </Title>
               <ActionIcon size="sm" variant="text" onClick={closeModal}>
                 <PiXBold className="h-auto w-5" />
               </ActionIcon>
             </div>
             <Input
-              label="Group Name"
+              label="Role Name"
               placeholder="Role name"
               {...register('roleName')}
               error={errors.roleName?.message}
             />
             <Input
-              label="Group Color"
+              label="Role Color"
               placeholder="Role Color"
               readOnly
               // className="[&_.rizzui-input-container]:"

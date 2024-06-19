@@ -46,10 +46,10 @@ export default function SignInForm() {
       
       // Dispatch the login action with the response data if login is successful
       if (response && response.statusCode === 200) {
-        const { username,accessToken,permissions } = response;
+        const { username,accessToken,permissions ,group,id} = response;
     
         console.log(accessToken);
-        dispatch(login({ accessToken, user: { username, email: data.email ,permissions:permissions} }));
+        dispatch(login({ accessToken, user: {_id:id, username, email: data.email ,permissions:permissions,group:group} }));
         loginSuccessToast()
       } else {
         // Handle invalid credentials or other error cases
@@ -119,7 +119,7 @@ export default function SignInForm() {
       <Text className="mt-6 text-center leading-loose text-gray-500 lg:mt-8 lg:text-start">
         Don’t have an account?{' '}
         <Link
-          href={routes.auth.signUp1}
+          href='/sign-up'
           className="font-semibold text-gray-700 transition-colors hover:text-blue"
         >
           Sign Up

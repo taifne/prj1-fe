@@ -17,7 +17,7 @@ class UserService {
         let love= await requestApiHelper<User[]>(
             interceptor.get("users")
         )
-      console.log(love)
+
         return love;
     }
 }

@@ -25,7 +25,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ url }) => {
   };
 
   return (
-    <Breadcrumb separator=">" className="text-lg">
+    <Breadcrumb separator=">" className="text-xl font-bold ml-4">
       <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
       {generateBreadcrumb()}
     </Breadcrumb>

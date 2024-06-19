@@ -13,6 +13,39 @@ export type User = {
   status: keyof typeof STATUSES;
 };
 
+export type  News = {
+  _id: string;
+  title: string;
+  description: string;
+  link: string;
+  startDay: string; // Assuming this is a valid ISO 8601 date string
+  endDay: string;   // Assuming this is a valid ISO 8601 date string
+  createdBy: {
+      _id: string;
+      avatar: string;
+      status: string;
+      fullName: string;
+  };
+  image: string | null;
+  createdAt: string; // Assuming this is a valid ISO 8601 date string
+  updatedAt: string; // Assuming this is a valid ISO 8601 date string
+  __v: number;
+};
+
+export type Event = {
+  _id: string;
+  group: string[];
+  title: string;
+  description: string;
+  location: string;
+  start: string; // Assuming this is a valid ISO 8601 date string
+  end: string;   // Assuming this is a valid ISO 8601 date string
+  createdAt: string; // Assuming this is a valid ISO 8601 date string
+  updatedAt: string; // Assuming this is a valid ISO 8601 date string
+  __v: number;
+};
+
+
 export const PERMISSIONS = {
   Read: 'Read',
   Write: 'Write',

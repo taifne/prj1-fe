@@ -36,14 +36,14 @@ const Homepage: React.FC = () => {
 
 
   return (
-    <div className='bg-white  p-4'>
+    <div className='bg-white  px-8'>
       <Breadcrumb url={location.pathname} />
       <Rendering loading={listStudy.loading}
         success={listStudy.success}
         error={listStudy.error}>
 
 
-        <div className="flex flex-row flex-wrap justify-evenly space-x-3 content-start w-full  rounded-sm  border-spacing-0.5 border-secondary-dark ">
+        <div className="flex flex-row flex-wrap justify-center   content-start w-full  rounded-sm  border-spacing-0.5 border-secondary-dark ">
           {listStudy.data.map(post => (
             <EventCard event={post} />
 

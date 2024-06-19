@@ -21,6 +21,7 @@ interface RoleCardProps {
   className?: string;
   icon?: React.ReactNode;
   users: User[];
+  _id:string;
 }
 
 export default function RoleCard({
@@ -28,6 +29,7 @@ export default function RoleCard({
   color,
   users,
   className,
+  _id
 }: RoleCardProps) {
   const { openModal } = useModal();
   return (
@@ -119,22 +121,15 @@ export default function RoleCard({
               className="relative z-10 -ml-1.5 h-8 w-8 rounded-full border-2 border-white"
             >
               <Avatar
-                name="Jane Doe"
+                name={user.fullName??""}
                 src={user.avatar}
               />
             </figure>
           ))}
         </div>
-        <span>Total {users.length} users</span>
+        <span className="ml-2">Total {users.length} users</span>
       </div>
-      <ModalButton
-        customSize="700px"
-        variant="outline"
-        label="Edit Role"
-        icon={<UserCog className="h-5 w-5" />}
-        view={<EditRole />}
-        className="items-center gap-1 text-gray-800 lg:mt-6 @lg:w-full"
-      />
+      <a href={`/management/roles/${_id}`} className="bg-black text-white rounded-md py-2 px-7 hover:text-white ml-28">edit</a>
     </div>
   );
 }
